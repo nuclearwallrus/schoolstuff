@@ -15,35 +15,66 @@ using namespace std;
 int main() {
 
     srand(time(0));
-    int hell = rand() % (10 - 1 + 1) + 1, guess;
-    bool fucku = false;
+//min and max for guessing game
+    int MIN = 1, MAX = 10;
+    int hell = rand() % (MAX - MIN + 1) + MIN, guess;
     
-    while (fucku == false) {
-        //cout << hell << endl; <-- tells what the number is
-        cout << "\nGuess an integer between 1 and 10 --> ";
-        cin >> guess;
+    bool loop = true;
+    
+    while (loop == true) {
+        bool evil = false;
         
-        if (guess < 1 || guess > 10) {
-            cout << "\nFollow the damn rules\n";
-        }
-        else {
-            if (guess == hell) {
-                fucku = true;
+        while (evil == false) {
+            
+            cout << hell << endl; //<-- tells what the number is (for testing)
+            
+            cout << "\nGuess an integer between " << MIN << " and " << MAX << "-->";
+            cin >> guess;
+            
+            if (guess < MIN || guess > MAX) {
+                cout << "\nFollow the damn rules\n";
             }
+            
             else {
-                if (guess < hell) {
-                    cout << "Guess is too low\n";
-                    hell = rand() % (10 - 1 + 1) + 1;
+                if (guess == hell) {
+                    cout << "\nGood guess.\n\n";
+                    evil = true;
                 }
+                
                 else {
-                    cout << "Guess is too high\n";
-                    hell = rand() % (10 - 1 + 1) + 1;
+                    if (guess < hell) {
+                        cout << "Guess is too low\n";
+                        hell = rand() % (MAX - MIN + 1) + MIN;
+                    }
+                    else {
+                        cout << "Guess is too high\n";
+                        hell = rand() % (MAX - MIN + 1) + MIN;
+                    }
                 }
+            }
+        }
+        char input;
+        cout << "Continue? y/n --> ";
+        cin >> input;
+        
+        if (input == 'n') loop = true; //hehe
+        else if (input == 'y') loop = false;
+        else {
+            bool a = false;
+            
+            while (a == false) { //dummy proofing
+                cout << "\nDoes not compute\n";
+                cout << "Continue? y/n --> ";
+                cin >> input;
+                
+                if (input == 'n') a = true;
+                else if (input == 'y') a = true;
+                else a = false;
             }
         }
     }
 
-    cout << "Good guess";
+    cout << "\nThanks for playing!.";
 
     return 0;
 }
